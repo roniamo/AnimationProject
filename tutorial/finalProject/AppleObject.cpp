@@ -9,7 +9,7 @@ AppleObject::AppleObject(std::shared_ptr<cg3d::Movable> root, std::shared_ptr<cg
     id = 0;
     distance = 0;
     speed = 0.001;
-    auto cube = Model::Create("cube", Mesh::Cube(), material);
+    auto cube = Model::Create("cube", Mesh::Cylinder(), material);
     root->AddChild(cube);
 
     // create a random number generator engine
@@ -26,7 +26,9 @@ AppleObject::AppleObject(std::shared_ptr<cg3d::Movable> root, std::shared_ptr<cg
     cube->Translate(distr(gen), Movable::Axis::X);
     cube->Translate(distr(gen), Movable::Axis::Z);
 
-    cube->RotateByDegree(-90.0, Movable::Axis::Z);
+    //cube->RotateByDegree(-90.0, Movable::Axis::Z);
+    cube->Scale(0.7, Movable::Axis::X);
+    cube->Scale(1.2, Movable::Axis::Z);
 
     model = cube;
     tree.init(model->GetMesh()->data[0].vertices, model->GetMesh()->data[0].faces);

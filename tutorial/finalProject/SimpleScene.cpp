@@ -523,7 +523,7 @@ void SimpleScene::Init(float fov, int width, int height, float near2, float far2
 void SimpleScene::SetupSnake()
 {
     program = std::make_shared<Program>("shaders/basicShader");
-    auto snakeMesh{ IglLoader::MeshFromFiles("snakeMesh", "data/snake1.obj")};
+    auto snakeMesh{ IglLoader::MeshFromFiles("snakeMesh", "data/snake5.obj")};
     auto snakeMaterial{ std::make_shared<Material>("blank", program) };
     snakeMaterial->AddTexture(0, "textures/snake.jpg", 2);
     snake = Model::Create("snake", snakeMesh, snakeMaterial);
@@ -557,7 +557,7 @@ void SimpleScene::SetupJoins() {
         return meshDataIndex;
     };
     auto program = std::make_shared<Program>("shaders/basicShader");
-    auto snakeMesh{ IglLoader::MeshFromFiles("snakeMesh", "data/snake1.obj") };
+    auto snakeMesh{ IglLoader::MeshFromFiles("snakeMesh", "data/snake5.obj") };
     auto snakeMaterial{ std::make_shared<Material>("blank", program) };
     snakeMaterial->AddTexture(0, "textures/snake.jpg", 2);
     for (int i = 1; i < 16; i++) {

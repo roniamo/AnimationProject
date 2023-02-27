@@ -27,7 +27,10 @@ BombObject::BombObject(std::shared_ptr<cg3d::Movable> root, std::shared_ptr<cg3d
     Eigen::Vector3f snakePos = scene->snakes[0]->GetTranslation();
     Eigen::Vector3f ourPos = octahedron->GetTranslation();
     Eigen::Vector3f res = ourPos - snakePos;
-    if (sqrt((res[0] * res[0]) + (res[1] * res[1]) + (res[2] * res[2])) < 3) octahedron->Translate(3.0, Movable::Axis::X);
+    if (sqrt((res[0] * res[0]) + (res[1] * res[1]) + (res[2] * res[2])) < 5) {
+        octahedron->Translate(5.0, Movable::Axis::X);
+        octahedron->Translate(5.0, Movable::Axis::Z);
+    }
 
     octahedron->RotateByDegree(45, Movable::Axis::XZ);
 
