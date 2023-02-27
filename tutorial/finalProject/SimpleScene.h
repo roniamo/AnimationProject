@@ -59,6 +59,7 @@ public:
     void EndLevel();
     void GoToEndGamePanel();
 	std::vector<std::shared_ptr<cg3d::AutoMorphingModel>> snakes;
+    bool music = false;
 
 private:
 	igl::AABB<Eigen::MatrixXd, 3> treeSnake;

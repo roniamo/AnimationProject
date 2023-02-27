@@ -61,7 +61,7 @@ void BombObject::moveObject()
 void BombObject::CollidedWithSnake() {
 
     // do something
-    SoundHandler::getInstance().PlayOurSound("gameover");
+    if (!scene->music) SoundHandler::getInstance().PlayOurSound("gameover");
     scene->GoToEndGamePanel();
 
     // setting isHidden will delete the object and remove from list next frame

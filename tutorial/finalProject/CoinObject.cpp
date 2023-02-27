@@ -56,7 +56,7 @@ void CoinObject::moveObject()
 void CoinObject::CollidedWithSnake() {
 
     // do something
-    SoundHandler::getInstance().PlayOurSound("pickup");
+    if (!scene->music) SoundHandler::getInstance().PlayOurSound("pickup");
     scene->AddScore(250);
 
     // destroy object + remove it from list

@@ -57,7 +57,7 @@ void AppleObject::moveObject()
 void AppleObject::CollidedWithSnake() {
 
     // do something
-    SoundHandler::getInstance().PlayOurSound("eat");
+    if (!scene->music) SoundHandler::getInstance().PlayOurSound("eat");
     scene->AddPart();
     scene->AddScore(1000);
 

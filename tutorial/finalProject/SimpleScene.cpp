@@ -132,7 +132,7 @@ void SimpleScene::BuildMainMenu()
     // create button
     if (ImGui::Button("Start Game", buttonSize)) 
     {
-		SoundHandler::getInstance().PlayOurSound("button");								   
+		if (!music) SoundHandler::getInstance().PlayOurSound("button");								   
         currentState = GameState::Level1;
         LoadLevel1();
     }
@@ -185,7 +185,7 @@ void SimpleScene::BuildLevel() {
         if (selectedCamera)
             ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive));
         if (ImGui::Button(std::to_string(i + 1).c_str())) {
-            SoundHandler::getInstance().PlayOurSound("button");
+            if (!music) SoundHandler::getInstance().PlayOurSound("button");
             SetCamera(i);
         }
         if (selectedCamera)
@@ -195,15 +195,27 @@ void SimpleScene::BuildLevel() {
     // Get the size of the ImGui window
     ImVec2 windowSize = ImGui::GetWindowSize();
 
+
+    // Set the X position of the cursor to the center of the window
+    ImGui::SetCursorPosX((windowSize.x / 2) - 100); // Assuming the button is 200 pixels wide
+    if (!music && ImGui::Button("Play Music", ImVec2(200, 35))) {
+        music = true;
+        SoundHandler::getInstance().PlayOurSound("music", true);
+    }
+    else if (music && ImGui::Button("Stop Music", ImVec2(200, 35))) {
+        music = false;
+        SoundHandler::getInstance().PlayOurSound("button");
+    }
+
     // Set the X position of the cursor to the center of the window
     ImGui::SetCursorPosX((windowSize.x / 2) - 100); // Assuming the button is 200 pixels wide
     if (!paused && ImGui::Button("Pause", ImVec2(200, 35))) {
-        SoundHandler::getInstance().PlayOurSound("button");
+        if (!music) SoundHandler::getInstance().PlayOurSound("button");
         prevTime = std::chrono::high_resolution_clock::now();
         paused = true;
     }
     else if (paused && ImGui::Button("Unpause", ImVec2(200, 35))) {
-        SoundHandler::getInstance().PlayOurSound("button");
+        if (!music) SoundHandler::getInstance().PlayOurSound("button");
         prevTime = std::chrono::high_resolution_clock::now();
         paused = false;
     }
@@ -286,7 +298,7 @@ void SimpleScene::BuildBetweenLevels() {
     // create button
     if (currentLevel < 3 && currentLevel != -1 && ImGui::Button("Next Level", buttonSize))
     {
-		SoundHandler::getInstance().PlayOurSound("button");
+        if (!music) SoundHandler::getInstance().PlayOurSound("button");
         currentLevel++;
         if (currentLevel == 2) {
             currentState = GameState::Level2;

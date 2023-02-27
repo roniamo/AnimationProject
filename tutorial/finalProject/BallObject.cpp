@@ -58,7 +58,7 @@ void BallObject::moveObject()
 void BallObject::CollidedWithSnake() {
 
     // do something
-    SoundHandler::getInstance().PlayOurSound("pickup");
+    if (!scene->music) SoundHandler::getInstance().PlayOurSound("pickup");
     scene->speedy = true;
     scene->oldTime = std::chrono::system_clock::now();
 
