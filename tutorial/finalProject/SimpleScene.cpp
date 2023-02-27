@@ -199,10 +199,12 @@ void SimpleScene::BuildLevel() {
     ImGui::SetCursorPosX((windowSize.x / 2) - 100); // Assuming the button is 200 pixels wide
     if (!paused && ImGui::Button("Pause", ImVec2(200, 35))) {
         SoundHandler::getInstance().PlayOurSound("button");
+        prevTime = std::chrono::high_resolution_clock::now();
         paused = true;
     }
     else if (paused && ImGui::Button("Unpause", ImVec2(200, 35))) {
         SoundHandler::getInstance().PlayOurSound("button");
+        prevTime = std::chrono::high_resolution_clock::now();
         paused = false;
     }
 
@@ -514,7 +516,6 @@ void SimpleScene::Init(float fov, int width, int height, float near2, float far2
     //////////////////////
 
     SetupCameras(fov, width, height, near2, far2);
-
 }
 
 #pragma region Snake Setup
@@ -920,6 +921,18 @@ void SimpleScene::KeyCallback(cg3d::Viewport* viewport, int x, int y, int key, i
         }
 
     }
+}
+
+void SimpleScene::MouseCallback(cg3d::Viewport* viewport, int x, int y, int button, int action, int mods, int buttonState[])
+{
+}
+
+void SimpleScene::ScrollCallback(cg3d::Viewport* viewport, int x, int y, int xoffset, int yoffset, bool dragging, int buttonState[])
+{
+}
+
+void SimpleScene::CursorPosCallback(cg3d::Viewport* viewport, int xNew, int yNew, bool dragging, int* buttonState)
+{
 }
 
 #pragma endregion

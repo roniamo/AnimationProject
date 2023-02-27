@@ -25,6 +25,9 @@ public:
     SimpleScene(std::string name, cg3d::Display* display);
     void Init(float fov, int width, int height, float near, float far);
     void KeyCallback(cg3d::Viewport* viewport, int x, int y, int key, int scancode, int action, int mods) override;
+    void MouseCallback(cg3d::Viewport* viewport, int x, int y, int button, int action, int mods, int buttonState[]) override;
+    void ScrollCallback(cg3d::Viewport* viewport, int x, int y, int xoffset, int yoffset, bool dragging, int buttonState[]) override;
+    void CursorPosCallback(cg3d::Viewport* viewport, int xNew, int yNew, bool dragging, int* buttonState) override;
     void SetupSnake();
     void AddPart();
     void SetupJoins();
