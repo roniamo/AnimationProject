@@ -1,105 +1,65 @@
-# EngineForAnimationCourse
+## SNAKE 3D-Final Project:
 
-### Graphic Engine based on Libigl
+### Game Purpose:
+The player needs to collect all red object(apples, each one gives the sanke another joint)
+in every level while avoiding black obstacles(bombs, if you hit one - you lose)
+There are two more objects you can collect. coins for extra points and green balls for limitted time speedup.
+every level begin with the space key and end when collected all apples or hit a bomb.
+the difficulty is increasing with every level, you must eat more apples while avoidin
 
+### GUI:
+We have a menu screen with a few buttons and a highscore system.
+In game we have an overlay for showing the current score and an option to change between the cameras.
+In addition, there is an option to pause and unpause the game.
+Once you pass to the next level you see your current score and a button to continue, if you beat level 3 you see a You Win! screen.
+If you lose you see a You Lose! screen.
 
+### Background:
+We have added more textures (cubemaps) for the different levels.
+The first level has the regular cubemap, the second and third are with new cubemaps.  
+-- It was hard to add the cubemaps due to the CMake
 
-#### First: clone or download the project from GitHub
+### Collision Detection:
+We've used the algo from assignment 2 to detect collisions between the snake and the objects.
+Since we have a lot of objects we make sure we only check for collisions when the snake is within a certain distance from an object.
+Another way to optimise this was to skip a few frames every time we detect a collision, so every 5 frames we only run the function once.
+We have 4 obstacles (apple, bomb, coin and ball), all are implementing an interface called GameObject.
+In GameObject we have a function that handles the logic of the collision for every type of object.
+-- Mainly optimization
 
+### Movement:
+Our snake moves in the 3d world space with translation. The player can move the snake with the arrow keys.
+We have a chain of links set to follow the head joint in the correct angle and smooth movement (snake like).
+The rest of the objects are moving in a random direction.  
+-- it was difficult to make the movement work correctly with the different camera and joints to work.
 
+### Sound:
+There are sound effects for hitting a bomb, clicking buttons, eating an apple and picking up coins or a ball.
+In addition, there is a button to turn background music on and off. 
 
-### Building / Debugging with CMake + Visual Studio on <u>Windows</u>
+### Optimization:
+Collision detection and we've predecimated some models with the code from assignment 1 (we have saved it as a file to avoid decimated it each time)
 
-1. Download Cmake from the link in the site
-2. Run Cmake GUI, choose the project folder and destination folder for the cpp project files, press configure choose compiler (VS2022 for example). After configuration finished successfully press configure again and then press generate. 
-3. If everything passes successfully click the "launch project" button or go to the build folder and launch the project from there. 
-4. Build and start debugging.
+### Texture Mapping:
+We have added textures to all objects. we've mapped the UV coords for the objects and attached textures to them.  
+-- it was hard to work with closed models because igl::boundary_loop will not work on them.
 
+### Cameras:
+We have 3 cameras.
+static from the top, snake view (child of the snake - looking from it's eyes), and 3rd person snake camera.
 
+### Highscore:
+We've added highscore to the game to keep it interesting. it keeps track of your best score between game sessions.
 
-### Building / Debugging with Visual Studio Code on <u>Windows</u>
-
-> Note: some of the notes below about debugging are probably also relevant for **Linux / macOS** (with some adjustments) but I haven't tested it.
-
-
-
-#### CMake Tools extension
-
-If when scanning for kits (compilers) the CMake Tools extension doesn't find anything (even though you have it installed), check if changing the system locale to "**English (United States)**" - locale "Israel (Hebrew)" doesn't work (other locales probably work but I only tested "English (United States)". Afterwards **restart the computer** and **scan for kits** again.
-
-This is how you do it:
-
-<img src="docs/windows_change_system_locale.png" alt="How to change system locale screenshot" style="zoom:80%;" />
-
-
-
-#### Building / Debugging
-
-1. Make sure you choose the **Debug** build variant:
-
-![VS Code how to choose build variant screenshot](docs/vsc_build_variant_debug.png)
-
-2. Build and click **(Windows) Launch** to start debugging
-
-
-
-#### Updating the Launch Configuration
-
-If the launch configuration is not set up correctly try the following:
-
-1. In VS Code, open *.vscode/launch.json*
-2. Click the button **Add Configuration...**
-3. Choose **C/C++: (Windows) Launch**
-
-![VS Code how to add debug configuration screenshot](docs/vsc_add_configuration.png)
-
-4. Change **program** and **cwd** to the correct paths (I also changed **console** but it's not mandatory).
-
+### Fullscreen support:
+The game changes the screen size dynamically to support every kind of screen size. 
 
 
-Here's a configuration that works for me :
-
-```json
-{
-    "name": "(Windows) Launch",
-    "type": "cppvsdbg",
-    "request": "launch",
-    "program": "${workspaceFolder}/build/Debug/Demo_bin.exe",
-    "args": [],
-    "stopAtEntry": false,
-    "cwd": "${workspaceFolder}/build/",
-    "environment": [],
-    "console": "integratedTerminal"
-}
-```
-
-
-
-5. Click **(Windows) Launch** to start debugging
-
-![CLion start debugging screenshot](docs/vsc_start_debugging.png)
-
-
-
-### Building / debugging with CLion
-
-
-
-When you first open the project you will see the following (or a similar) screen
-
-<img src="docs/clion_open_project_wizard.png" alt="CLion project wizard options screenshot" style="zoom: 67%;" />
-
-1. **Do not use the default (Ninja) generator!**
-
-   On Windows choose: "Let CMake decide"
-
-   On Linux/Mac choose "Unix Makefiles"
-
-
-2. To share the build directory with VS choose build directory to be "build"
-
-
-
-Afterwards, open the Demo_bin run configuration and put $CMakeCurrentGenerationDir$ in the working directory.
-
-<img src="docs/clion_debug_configuration.png" alt="CLion run configuration working directory screenshot" style="zoom:67%;" />
+### Difficulties:
+- CMake
+- Efficient collision detection
+- Snake movement
+- Texture mapping
+- Simplification and optimization
+- Random movement of objects
+- Optimization
